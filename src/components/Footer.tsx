@@ -17,11 +17,6 @@ export const Footer: React.FC = () => {
           </span>
         </div>
 
-        {/* Center / credit */}
-        <div className="text-[11px] text-stone-400 font-light">
-          Nordic Kinetic Architecture · Substance over ceremony
-        </div>
-
         {/* Back to top */}
         <button
           type="button"

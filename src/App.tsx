@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FAFAF9] text-[#09090B] flex flex-col font-sans">
       {/* Sticky Minimalist Brand Navbar */}
-      <Navbar name={profile.name} status={profile.status} />
+      <Navbar name={profile.name} />
 
       {/* Main Reading Column (Constrained max-w-5xl with generous spatial rhythm) */}
       <main className="flex-1 max-w-5xl w-full mx-auto px-6 sm:px-10 space-y-16 sm:space-y-24">

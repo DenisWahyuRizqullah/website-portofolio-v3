@@ -3,10 +3,9 @@ import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   name: string;
-  status: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ name, status }) => {
+export const Navbar: React.FC<NavbarProps> = ({ name }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
@@ -29,10 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({ name, status }) => {
           <span className="w-2.5 h-2.5 rounded-full bg-stone-900 group-hover:scale-110 transition-transform" />
           <span className="font-semibold text-sm tracking-tight text-stone-950">
             {name}
-          </span>
-          <span className="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 text-[11px] font-mono border border-stone-200/60">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            {status}
           </span>
         </a>
 
