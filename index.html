@@ -16,8 +16,24 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Theme Pre-paint FOUC Prevention Script -->
+    <script>
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const initialTheme = stored ? stored : (systemDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', initialTheme);
+          if (initialTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
   </head>
-  <body class="bg-[#FAFAF9] text-[#09090B] selection:bg-[#18181B] selection:text-white antialiased">
+  <body class="bg-[#FAFAF9] dark:bg-[#0C0C0E] text-[#09090B] dark:text-[#F4F4F5] selection:bg-[#18181B] selection:text-white dark:selection:bg-white dark:selection:text-stone-900 antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

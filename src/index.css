@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @layer base {
   :root {
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -14,6 +16,16 @@
     --ease-kinetic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  [data-theme="dark"] {
+    --canvas: #0C0C0E;
+    --surface: #141417;
+    --hairline: rgba(255, 255, 255, 0.08);
+    --hairline-strong: #27272A;
+    --text-primary: #F4F4F5;
+    --text-secondary: #A1A1AA;
+    --text-tertiary: #71717A;
+  }
+
   body {
     font-family: var(--font-sans);
     background-color: var(--canvas);
@@ -24,6 +36,15 @@
 
   code, pre, .font-mono {
     font-family: var(--font-mono);
+  }
+
+  /* Universal Synchronized Theme Transition for colors, backgrounds & borders */
+  *,
+  *::before,
+  *::after {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 280ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -80,6 +101,14 @@
   border-radius: 9999px;
 }
 
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }

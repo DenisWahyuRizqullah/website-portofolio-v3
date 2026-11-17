@@ -14,7 +14,7 @@ export const App: React.FC = () => {
   const { profile, pillars, projects, ethos, experiences, skills } = portfolioData;
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] text-[#09090B] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAFAF9] dark:bg-[#0C0C0E] text-[#09090B] dark:text-[#F4F4F5] flex flex-col font-sans">
       {/* Sticky Minimalist Brand Navbar */}
       <Navbar name={profile.name} />
 
