@@ -48,6 +48,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html.scroll-smooth {
+    scroll-behavior: auto;
+  }
+}
+
 /* Hairline utilities */
 .hairline-b {
   border-bottom: 1px solid var(--hairline);
@@ -128,7 +134,7 @@
   will-change: transform;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1280px) {
   .dock-active-pill {
     transform: translateY(calc(var(--dock-active-idx, 0) * 44px)) scale(var(--dock-active-scale, 1));
   }

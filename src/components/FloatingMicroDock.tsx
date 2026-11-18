@@ -17,18 +17,12 @@ const DOCK_SECTIONS: DockSection[] = [
   { id: 'contact', index: '06', title: 'Transmission', icon: Send },
 ];
 
-// Easing function: easeInOutCubic
-const easeInOutCubic = (t: number): number => {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-};
-
 export const FloatingMicroDock: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   const activeIdxRef = useRef<number>(0);
   const isProgrammaticScroll = useRef(false);
-  const rafScrollId = useRef<number | null>(null);
   const unlockTimeout = useRef<number | null>(null);
 
   // Keep activeIdxRef synchronized with state
@@ -36,65 +30,32 @@ export const FloatingMicroDock: React.FC = () => {
     activeIdxRef.current = activeIdx;
   }, [activeIdx]);
 
-  // Custom 700ms easeInOutCubic smooth scroll function
+  // Native smooth scroll with reduced motion support and intermediate lock
   const scrollToSection = useCallback((idx: number, id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
 
-    // Cancel any ongoing programmatic scroll animation or timer
-    if (rafScrollId.current !== null) {
-      cancelAnimationFrame(rafScrollId.current);
-      rafScrollId.current = null;
-    }
-    if (unlockTimeout.current !== null) {
-      window.clearTimeout(unlockTimeout.current);
-      unlockTimeout.current = null;
-    }
-
-    // Immediately slide active pill to the clicked icon and lock scroll-spy
-    isProgrammaticScroll.current = true;
+    // Immediately slide active pill to clicked icon
     activeIdxRef.current = idx;
     setActiveIdx(idx);
 
-    const header = document.querySelector('header');
-    const headerOffset = header ? header.offsetHeight + 10 : 70;
-    const targetTop = element.getBoundingClientRect().top + window.scrollY - headerOffset;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const clampedTarget = Math.max(0, Math.min(targetTop, maxScroll));
-
-    const startY = window.scrollY;
-    const distance = clampedTarget - startY;
-
-    if (Math.abs(distance) < 2) {
-      isProgrammaticScroll.current = false;
-      return;
+    // Lock scroll-spy temporarily so passing intermediate sections does not flicker
+    isProgrammaticScroll.current = true;
+    if (unlockTimeout.current !== null) {
+      window.clearTimeout(unlockTimeout.current);
     }
 
-    const duration = 700;
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = easeInOutCubic(progress);
-
-      window.scrollTo(0, startY + distance * eased);
-
-      if (progress < 1) {
-        rafScrollId.current = requestAnimationFrame(animate);
-      } else {
-        rafScrollId.current = null;
-        // Lock for 720ms total to guarantee clean landing before scroll-spy resumes
-        const elapsedTotal = performance.now() - startTime;
-        const remainingLock = Math.max(0, 720 - elapsedTotal);
-
-        unlockTimeout.current = window.setTimeout(() => {
-          isProgrammaticScroll.current = false;
-        }, remainingLock);
-      }
+    const unlock = () => {
+      isProgrammaticScroll.current = false;
     };
 
-    rafScrollId.current = requestAnimationFrame(animate);
+    unlockTimeout.current = window.setTimeout(unlock, 700);
+    if ('onscrollend' in window) {
+      window.addEventListener('scrollend', unlock, { once: true });
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    element.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }, []);
 
   // 60fps Scroll-Spy Detection inside requestAnimationFrame
@@ -145,10 +106,6 @@ export const FloatingMicroDock: React.FC = () => {
     // User interrupt immediately releases programmatic lock
     const handleUserInterrupt = () => {
       if (isProgrammaticScroll.current) {
-        if (rafScrollId.current !== null) {
-          cancelAnimationFrame(rafScrollId.current);
-          rafScrollId.current = null;
-        }
         if (unlockTimeout.current !== null) {
           window.clearTimeout(unlockTimeout.current);
           unlockTimeout.current = null;
@@ -168,9 +125,6 @@ export const FloatingMicroDock: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('wheel', handleUserInterrupt);
       window.removeEventListener('touchstart', handleUserInterrupt);
-      if (rafScrollId.current !== null) {
-        cancelAnimationFrame(rafScrollId.current);
-      }
       if (unlockTimeout.current !== null) {
         window.clearTimeout(unlockTimeout.current);
       }
@@ -188,10 +142,10 @@ export const FloatingMicroDock: React.FC = () => {
     <nav
       aria-label="Section Navigation"
       className="fixed z-50
-        /* Desktop: Left-side vertical capsule */
-        md:left-6 md:top-1/2 md:-translate-y-1/2 md:flex-col
-        /* Mobile: Bottom-centered horizontal capsule */
-        bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:translate-x-0
+        /* Desktop (>= 1280px): Left-side vertical capsule */
+        xl:left-6 xl:top-1/2 xl:-translate-y-1/2 xl:flex-col
+        /* Mobile, Tablet & Small Laptop (< 1280px): Bottom-centered horizontal capsule */
+        bottom-4 left-1/2 -translate-x-1/2 xl:bottom-auto xl:translate-x-0
         flex flex-row items-center gap-2 p-1.5 rounded-full
         bg-white/75 dark:bg-[#121216]/75 backdrop-blur-md
         border border-stone-200/80 dark:border-stone-800/90
@@ -243,17 +197,14 @@ export const FloatingMicroDock: React.FC = () => {
             {/* Crisp 16px Vector Icon */}
             <IconComponent size={16} strokeWidth={1.75} className="relative z-10 shrink-0" />
 
-            {/* Floating Monospace Pill Tooltip */}
+            {/* Floating Monospace Pill Tooltip (Desktop only) */}
             <span
-              className={`dock-tooltip absolute pointer-events-none whitespace-nowrap px-2.5 py-1 rounded-full text-[11px] font-mono tracking-wider bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 shadow-md border border-stone-800/20 dark:border-stone-200/20 z-30
-                /* Desktop: placed to the right */
-                md:left-[calc(100%+14px)] md:top-1/2 md:-translate-y-1/2
-                /* Mobile: placed above */
-                bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 md:bottom-auto
+              className={`dock-tooltip hidden xl:block absolute pointer-events-none whitespace-nowrap px-2.5 py-1 rounded-full text-[11px] font-mono tracking-wider bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 shadow-md border border-stone-800/20 dark:border-stone-200/20 z-30
+                left-[calc(100%+14px)] top-1/2 -translate-y-1/2
                 ${
                   isHovered
-                    ? 'opacity-100 md:translate-x-0 -translate-y-0 scale-100'
-                    : 'opacity-0 md:-translate-x-2 translate-y-2 scale-[0.94]'
+                    ? 'opacity-100 translate-x-0 scale-100'
+                    : 'opacity-0 -translate-x-2 scale-[0.94]'
                 }`}
             >
               {sec.index} · {sec.title}
