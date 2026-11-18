@@ -9,6 +9,7 @@ import { CareerRecord } from './components/CareerRecord';
 import { SkillsMatrix } from './components/SkillsMatrix';
 import { ContactModule } from './components/ContactModule';
 import { Footer } from './components/Footer';
+import { FloatingMicroDock } from './components/FloatingMicroDock';
 
 export const App: React.FC = () => {
   const { profile, pillars, projects, ethos, experiences, skills } = portfolioData;
@@ -17,6 +18,9 @@ export const App: React.FC = () => {
     <div className="min-h-screen bg-[#FAFAF9] dark:bg-[#0C0C0E] text-[#09090B] dark:text-[#F4F4F5] flex flex-col font-sans">
       {/* Sticky Minimalist Brand Navbar */}
       <Navbar name={profile.name} />
+
+      {/* Floating Micro Dock (Left-side Section Navigator) */}
+      <FloatingMicroDock />
 
       {/* Main Reading Column (Constrained max-w-5xl with generous spatial rhythm) */}
       <main className="flex-1 max-w-5xl w-full mx-auto px-6 sm:px-10 space-y-16 sm:space-y-24">

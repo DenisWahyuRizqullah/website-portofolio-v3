@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
   return (
-    <section className="pt-8 sm:pt-14 pb-12 sm:pb-16 space-y-8">
+    <section id="intro" className="pt-8 sm:pt-14 pb-12 sm:pb-16 space-y-8 scroll-mt-24">
       {/* Tracker label */}
       <div className="flex items-center gap-3">
         <span className="text-xs font-mono uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
