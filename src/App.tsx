@@ -63,7 +63,7 @@ export const App: React.FC = () => {
         {/* Engineering Ethos / Mental Models Grid */}
         <EngineeringEthos ethos={ethos} />
 
-        {/* Understated Contact Transmission */}
+        {/* Direct Contact Module */}
         <ContactModule profile={profile} />
 
         {/* Minimalist Monospace Footer */}

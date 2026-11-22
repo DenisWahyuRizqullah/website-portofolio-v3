@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Terminal, Cpu, Compass, Briefcase, Code2, Send, LucideIcon } from 'lucide-react';
+import { Terminal, Cpu, Compass, Briefcase, Code2, Mail, LucideIcon } from 'lucide-react';
 
 interface DockSection {
   id: string;
@@ -10,11 +10,11 @@ interface DockSection {
 
 const DOCK_SECTIONS: DockSection[] = [
   { id: 'intro', index: '01', title: 'Intro', icon: Terminal },
-  { id: 'systems', index: '02', title: 'Systems', icon: Cpu },
+  { id: 'systems', index: '02', title: 'Projects', icon: Cpu },
   { id: 'career', index: '03', title: 'Career', icon: Briefcase },
   { id: 'capabilities', index: '04', title: 'Capabilities', icon: Code2 },
   { id: 'ethos', index: '05', title: 'Ethos', icon: Compass },
-  { id: 'contact', index: '06', title: 'Transmission', icon: Send },
+  { id: 'contact', index: '06', title: 'Contact', icon: Mail },
 ];
 
 export const FloatingMicroDock: React.FC = () => {
