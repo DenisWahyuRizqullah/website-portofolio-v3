@@ -19,14 +19,14 @@ export const portfolioData: PortfolioData = {
     ],
     resumes: [
       {
-        label: 'Resume — Software & Systems',
-        sublabel: 'W_CV_Denis Wahyu Rizqullah.pdf',
-        url: '/assets/resume/W_CV_Denis Wahyu Rizqullah.pdf',
+        label: 'Resume — Software Engineering',
+        sublabel: 'CV_SE_Denis_Wahyu_Rizqullah.pdf',
+        url: '/assets/resume/CV_SE_Denis_Wahyu_Rizqullah.pdf',
       },
       {
-        label: 'Resume — AI & Machine Learning',
-        sublabel: 'ML_CV_Denis Wahyu Rizqullah.pdf',
-        url: '/assets/resume/ML_CV_Denis Wahyu Rizqullah.pdf',
+        label: 'Resume — IT Support',
+        sublabel: 'CV_ITSP_Denis_Wahyu_Rizqullah.pdf',
+        url: '/assets/resume/CV_ITSP_Denis_Wahyu_Rizqullah.pdf',
       },
     ],
     socials: [
@@ -188,7 +188,7 @@ export const portfolioData: PortfolioData = {
       tags: ['Edge AI', 'Raspberry Pi 3B', 'Python', 'C++', 'ESP8266', 'MQTT Broker', 'ANN'],
       category: 'Edge AI & Distributed IoT',
       featured: true,
-      metric: 'Zero Cloud · Real-time Inference',
+      metric: 'Zero Cloud · Real time Inference',
       caseStudy: {
         about: [
           'An integrated microclimate monitoring and irrigation management system that uses on-device neural network inference to classify impending weather conditions and automate soil hydration.',
@@ -212,13 +212,17 @@ export const portfolioData: PortfolioData = {
           'Executing reliable continuous neural network inference within the constrained RAM and CPU budget of a Raspberry Pi 3B while juggling concurrent MQTT connections.',
           'Overcome by optimizing network topology, pruning redundant hidden layers, and introducing asynchronous I/O loops.',
         ],
+        images: [
+          '/assets/img/mandiri/weather-pred/comparative_analysis_dashboard.png',
+          '/assets/img/mandiri/weather-pred/evaluation_dashboard.png',
+        ],
       },
     },
     {
       id: 4,
       indexStr: '04',
       title: 'IoT Residential Fire & Gas Hazard Network',
-      subtitle: 'Multi-House Real-Time Emergency Telemetry over MQTT',
+      subtitle: 'Multi-House Real Time Emergency Telemetry over MQTT',
       date: 'Oct 2025',
       location: 'Malang, Indonesia',
       description:
@@ -226,7 +230,7 @@ export const portfolioData: PortfolioData = {
       tags: ['IoT Architecture', 'C++', 'ESP8266', 'MQTT Protocol', 'Emergency Telemetry'],
       category: 'IoT & Embedded Hardware',
       featured: false,
-      metric: 'House-ID Namespaced Routing',
+      metric: 'House ID Namespaced Routing',
       caseStudy: {
         about: [
           'A safety monitoring network engineered for residential clusters to detect pre-ignition combustible gas accumulation and open flame events before fires spread.',
@@ -262,7 +266,7 @@ export const portfolioData: PortfolioData = {
       tags: ['Deep Learning', 'Python', 'TensorFlow', 'ResNet-50', 'Vision Transformer (ViT)', 'OpenCV'],
       category: 'Computer Vision & Machine Learning',
       featured: false,
-      metric: 'Hybrid CNN-Transformer',
+      metric: 'Hybrid CNN Transformer',
       caseStudy: {
         about: [
           'An experimental computer vision architecture benchmark evaluating how combining local inductive bias from CNNs with global receptive fields from Vision Transformers improves complex classification performance.',
@@ -273,18 +277,35 @@ export const portfolioData: PortfolioData = {
       id: 6,
       indexStr: '06',
       title: 'Village SME Digital Presence & Export Catalog',
-      subtitle: 'Web Catalog & Digital Branding for Narto Jati Furniture',
+      subtitle: 'Web Platform & Digitalization Initiative — KKN Universitas Brawijaya',
       date: 'Jun – Jul 2023',
       location: 'Sumberkramat, Probolinggo',
       description:
-        'Digital showcase platform engineered for rural teak furniture artisans in Probolinggo, transforming an offline craft business into an online catalog ready for national and export inquiries.',
-      tags: ['Web Platform', 'WordPress Architecture', 'cPanel & DNS', 'SSL/HTTPS', 'Field Photography'],
+        'End-to-end web catalog and digital presence engineered during a university community service initiative (KKN Universitas Brawijaya) in Sumberkramat Village, Probolinggo. Transformed an offline, word-of-mouth teak wood furniture craft business into an online showcase accessible to domestic and international prospective buyers.',
+      tags: ['WordPress Architecture', 'cPanel & DNS', 'SSL/HTTPS', 'Field Photography', 'Product Digitization', 'Community Outreach'],
       category: 'Web Platform & Digitization',
       featured: false,
       metric: 'End-to-End SME Launch',
       caseStudy: {
         about: [
-          'A community technology initiative empowering traditional teak wood artisans in Sumberkramat Village, Probolinggo, to establish their first secure digital sales and portfolio presence.',
+          'Initiated as part of Universitas Brawijaya\'s community service program (KKN) in Sumberkramat Village, Probolinggo, this project empowered local teak wood artisans (Narto Jati Furniture) to transition from traditional word-of-mouth marketing into the digital economy.',
+          'By establishing an authenticated online catalog with high-fidelity workshop photography and structured product categories, the platform provided the rural workshop with its first credible online footprint for broader market outreach.',
+        ],
+        objectives: [
+          'Overcome geographic and digital isolation by replacing conventional word of mouth promotion with an accessible web catalog.',
+          'Deploy a secure, performant WordPress architecture configured on cPanel with custom DNS routing and HTTPS/SSL encryption.',
+          'Photograph, curate, and catalog physical teak furniture products directly within rural workshop environments.',
+          'Deliver pragmatic digital literacy training to help the SME owner navigate digital inquiries and communicate with remote buyers.',
+        ],
+        methodology: [
+          'On Site Workshop Audit & Photography: Conducted field visits to capture high-resolution imagery of handcrafted teak tables, chairs, and custom furniture pieces amidst active woodworking processes.',
+          'Web Architecture & Hosting Deployment: Set up cPanel hosting, mapped custom domain DNS records, installed automated SSL certificates, and configured a lightweight WordPress environment.',
+          'Categorized Product Architecture: Structured products into modular galleries with detailed dimensions, timber specifications, and direct WhatsApp contact actions for seamless inquiry conversion.',
+          'Owner Handover & Digital Enablement: Provided hands-on training on digital communication etiquette and catalog sharing to ensure self-sustained operational continuity.',
+        ],
+        challenge: [
+          'Technical & Operational Bottleneck: Capturing clean product photography within a dusty, active sawmill workshop without studio lighting, paired with low initial digital literacy on the part of the artisan.',
+          'Resolution: Executed natural light outdoor photo sessions with post-capture color correction and web-ready image compression. Simplified operational workflows into visual step by step guides, allowing the owner to easily share direct product URLs via mobile messaging.',
         ],
         images: [
           '/assets/img/mandiri/website-village/Screenshot_56.png',
@@ -348,6 +369,21 @@ export const portfolioData: PortfolioData = {
 
   experiences: [
     {
+      id: 'exp-formulatrix',
+      role: 'Junior Software Engineer Graduate Intern',
+      organization: 'Formulatrix',
+      period: 'Aug 2026 – Nov 2026',
+      location: 'Salatiga, Indonesia',
+      type: 'Graduate Engineering Internship',
+      highlights: [
+        'Developed and maintained internal production software using React.js, TypeScript, and ASP.NET Core Web API (.NET 10), integrating SignalR and RESTful endpoints for real-time status monitoring and reliable backend-to-firmware communication with Raspberry Pi 4.',
+        'Designed and implemented a sharding space encoding algorithm in C#, reducing cross-machine code collision rates from 20.66% to 2.7% across dedicated production PCs.',
+        'Engineered a semi-automated calibration tool in Python utilizing motor encoder pulse feedback to support hardware calibration and improve measurement accuracy in production processes.',
+        'Created and maintained REST API documentation, feature changelogs, and user manuals, providing clear technical references for system usage, maintenance, and team collaboration.',
+      ],
+      tags: ['React.js', 'TypeScript', 'ASP.NET Core', 'C#', 'SignalR', 'Python', 'Raspberry Pi 4'],
+    },
+    {
       id: 'exp-telkomsel',
       role: 'Software and Hardware Developer Intern',
       organization: 'PT Telekomunikasi Selular (Telkomsel)',
@@ -363,50 +399,6 @@ export const portfolioData: PortfolioData = {
       tags: ['C++', 'NodeMCU ESP8266', 'NEMA 17 Stepper', 'Embedded Web UI', 'Wireless Protocols'],
       reportUrl: '/assets/report/Laporan_magang.pdf',
       reportLabel: 'Internship Technical Report (PDF)',
-    },
-    {
-      id: 'exp-jptiik',
-      role: 'Computer Vision & Mobile Systems Researcher',
-      organization: 'Universitas Brawijaya (J-PTIIK Publication)',
-      period: 'Aug 2024 – Dec 2024',
-      location: 'Malang, Indonesia',
-      type: 'Academic Research Publication',
-      highlights: [
-        'Researched and built a smartphone-based microscopic blood cell detection application utilizing optimized lightweight template matching.',
-        'Preprocessed and curated peripheral blood smear microphotographs across neutrophil, lymphocyte, monocyte, and eosinophil cell lines.',
-        'Empirically evaluated template bank sizes and correlation thresholds—discovering an optimal operating point of 4 templates at a 0.6 threshold for mobile CPU latency.',
-        'Authored and published the complete research manuscript in Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer (J-PTIIK).',
-      ],
-      tags: ['Python', 'Kotlin', 'Template Matching', 'Computer Vision', 'Mobile Computing'],
-      reportUrl: '/assets/report/J-PTIIK Paper_Denis Wahyu Rizqullah.pdf',
-      reportLabel: 'J-PTIIK Published Research Paper (PDF)',
-    },
-    {
-      id: 'exp-agri-ai',
-      role: 'Edge AI & IoT Systems Developer',
-      organization: 'Smart Agriculture Research — Universitas Brawijaya',
-      period: 'Aug 2024 – Nov 2024',
-      location: 'Malang, Indonesia',
-      type: 'Applied Systems Project',
-      highlights: [
-        'Architected a distributed IoT + Edge AI system coupling ESP8266 telemetry nodes (DHT11 temperature, humidity, water sensors) with a Raspberry Pi 3B broker.',
-        'Deployed an Artificial Neural Network (ANN) model directly onto the Raspberry Pi 3B to execute localized offline weather inference for automated irrigation.',
-        'Engineered moving-average noise filtering and sensor normalization pipelines to maintain stable inference during outdoor environmental fluctuations.',
-      ],
-      tags: ['Python', 'C++', 'Artificial Neural Network', 'Raspberry Pi 3B', 'ESP8266', 'MQTT Broker'],
-    },
-    {
-      id: 'exp-village-sme',
-      role: 'Web Platform Developer & Digital Strategist',
-      organization: 'Narto Jati Furniture — Village SME Digitalization',
-      period: 'Jun 2023 – Jul 2023',
-      location: 'Sumberkramat, Probolinggo',
-      type: 'Community Digitization Initiative',
-      highlights: [
-        'Conducted on-site technical interviews and product photography for rural teak wood artisans to launch their first digital catalog and brand presence.',
-        'Configured domain routing, cPanel hosting, HTTPS/SSL certificates, and a performant web catalog tailored for international and domestic buyer inquiries.',
-      ],
-      tags: ['WordPress Architecture', 'cPanel', 'DNS & SSL', 'Product Photography', 'Digital Strategy'],
     },
   ],
 
