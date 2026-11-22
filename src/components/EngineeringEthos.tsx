@@ -11,7 +11,7 @@ export const EngineeringEthos: React.FC<EngineeringEthosProps> = ({ ethos }) => 
       {/* Section Header */}
       <div className="border-b border-stone-200/80 dark:border-stone-800 pb-4">
         <div className="text-xs font-mono uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-1">
-          02 / ENGINEERING ETHOS
+          04 / ENGINEERING ETHOS
         </div>
         <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-stone-950 dark:text-stone-100">
           First-Principles Mental Models

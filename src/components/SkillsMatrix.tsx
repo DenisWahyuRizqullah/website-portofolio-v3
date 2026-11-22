@@ -11,7 +11,7 @@ export const SkillsMatrix: React.FC<SkillsMatrixProps> = ({ skills }) => {
       {/* Section Header */}
       <div className="border-b border-stone-200/80 dark:border-stone-800 pb-4">
         <div className="text-xs font-mono uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-1">
-          04 / TECHNICAL CAPABILITIES
+          03 / TECHNICAL CAPABILITIES
         </div>
         <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-stone-950 dark:text-stone-100">
           Systems Matrix & Toolchains

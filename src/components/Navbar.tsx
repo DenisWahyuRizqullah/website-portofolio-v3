@@ -11,11 +11,11 @@ export const Navbar: React.FC<NavbarProps> = ({ name, isNotFound = false }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Systems', href: isNotFound ? '/#systems' : '#systems' },
-    { label: 'Ethos', href: isNotFound ? '/#ethos' : '#ethos' },
+    { label: 'Projects', href: isNotFound ? '/#systems' : '#systems' },
     { label: 'Career', href: isNotFound ? '/#career' : '#career' },
     { label: 'Capabilities', href: isNotFound ? '/#capabilities' : '#capabilities' },
-    { label: 'Transmission', href: isNotFound ? '/#contact' : '#contact' },
+    { label: 'Ethos', href: isNotFound ? '/#ethos' : '#ethos' },
+    { label: 'Contact', href: isNotFound ? '/#contact' : '#contact' },
   ];
 
   return (

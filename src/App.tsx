@@ -54,16 +54,16 @@ export const App: React.FC = () => {
         {/* Interactive Accordion Project Drawers */}
         <ProjectAccordion projects={projects} />
 
-        {/* Engineering Ethos / Mental Models Grid */}
-        <EngineeringEthos ethos={ethos} />
-
         {/* Minimalist Career Record */}
         <CareerRecord experiences={experiences} />
 
         {/* Technical Capabilities Matrix */}
         <SkillsMatrix skills={skills} />
 
-        {/* Understated Contact Transmission */}
+        {/* Engineering Ethos / Mental Models Grid */}
+        <EngineeringEthos ethos={ethos} />
+
+        {/* Direct Contact Module */}
         <ContactModule profile={profile} />
 
         {/* Minimalist Monospace Footer */}
