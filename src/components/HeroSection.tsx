@@ -32,7 +32,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
           I am a Computer Engineering graduate from Universitas Brawijaya specializing in the synthesis of bare-metal microcontrollers, deterministic edge ML, and robust web applications.
         </p>
         <p className="text-stone-500 dark:text-stone-400/90 text-xs sm:text-sm font-light">
-          From aligning telecommunication antennas over wireless stepper control at Telkomsel to publishing peer-reviewed research on mobile computer vision in J-PTIIK, my focus is structured, measurable execution.
+          From aligning telecommunication antennas over wireless stepper control at Telkomsel to publishing research on mobile computer vision in J-PTIIK, my focus is structured, measurable execution.
         </p>
       </div>
 

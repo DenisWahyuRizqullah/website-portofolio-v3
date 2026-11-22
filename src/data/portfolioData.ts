@@ -373,7 +373,7 @@ export const portfolioData: PortfolioData = {
       role: 'Junior Software Engineer Graduate Intern',
       organization: 'Formulatrix',
       period: 'Aug 2026 – Nov 2026',
-      location: 'Salatiga, Indonesia',
+      location: 'Semarang, Indonesia',
       type: 'Graduate Engineering Internship',
       highlights: [
         'Developed and maintained internal production software using React.js, TypeScript, and ASP.NET Core Web API (.NET 10), integrating SignalR and RESTful endpoints for real-time status monitoring and reliable backend-to-firmware communication with Raspberry Pi 4.',
