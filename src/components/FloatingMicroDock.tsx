@@ -11,9 +11,9 @@ interface DockSection {
 const DOCK_SECTIONS: DockSection[] = [
   { id: 'intro', index: '01', title: 'Intro', icon: Terminal },
   { id: 'systems', index: '02', title: 'Systems', icon: Cpu },
-  { id: 'ethos', index: '03', title: 'Ethos', icon: Compass },
-  { id: 'career', index: '04', title: 'Career', icon: Briefcase },
-  { id: 'capabilities', index: '05', title: 'Capabilities', icon: Code2 },
+  { id: 'career', index: '03', title: 'Career', icon: Briefcase },
+  { id: 'capabilities', index: '04', title: 'Capabilities', icon: Code2 },
+  { id: 'ethos', index: '05', title: 'Ethos', icon: Compass },
   { id: 'contact', index: '06', title: 'Transmission', icon: Send },
 ];
 
