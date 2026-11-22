@@ -4,17 +4,18 @@ import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   name: string;
+  isNotFound?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ name }) => {
+export const Navbar: React.FC<NavbarProps> = ({ name, isNotFound = false }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Systems', href: '#systems' },
-    { label: 'Ethos', href: '#ethos' },
-    { label: 'Career', href: '#career' },
-    { label: 'Capabilities', href: '#capabilities' },
-    { label: 'Transmission', href: '#contact' },
+    { label: 'Systems', href: isNotFound ? '/#systems' : '#systems' },
+    { label: 'Ethos', href: isNotFound ? '/#ethos' : '#ethos' },
+    { label: 'Career', href: isNotFound ? '/#career' : '#career' },
+    { label: 'Capabilities', href: isNotFound ? '/#capabilities' : '#capabilities' },
+    { label: 'Transmission', href: isNotFound ? '/#contact' : '#contact' },
   ];
 
   return (
@@ -22,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ name }) => {
       <div className="max-w-5xl mx-auto px-6 sm:px-10 py-4 flex items-center justify-between">
         {/* Brand identity */}
         <a
-          href="#"
+          href="/"
           className="flex items-center gap-3 group focus:outline-none focus-visible:ring-1 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
           aria-label="Denis Wahyu Rizqullah — Home"
         >
