@@ -1,0 +1,111 @@
+# ==============================================================================
+# 1. PENGALIHAN OTOMATIS KE HTTPS (KEAMANAN KONEKSI)
+# ==============================================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Paksa koneksi aman HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ==============================================================================
+# 2. OTAK UTAMA SPA & ERROR 404 (MENCEGAH ERROR SERVER & MENYERAHKAN KE REACT)
+# ==============================================================================
+# Kirim status 404 untuk SEO jika rute tidak ditemukan dan delegasikan ke index.html
+ErrorDocument 404 /index.html
+
+<IfModule mod_rewrite.c>
+  # Jika berkas atau direktori fisik ada (asset css/js/gambar), layani langsung
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Jika bukan berkas fisik, serahkan rute ke index.html untuk dibaca React
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ==============================================================================
+# 3. KOMPRESI GZIP (MENGECILKAN UKURAN BERKAS SAMPAI 70%)
+# ==============================================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/woff
+  AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# ==============================================================================
+# 4. CACHING BROWSER (ASSETS SECEPAT KILAT, NO-CACHE UNTUK INDEX.HTML)
+# ==============================================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # HTML: Jangan di-cache lama agar deployment baru terbaca instan
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Aset Statis (Vite membubuhkan hash unik pada nama berkas, aman 1 tahun)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/x-javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+
+  # Gambar & Media
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # KHUSUS file index.html: JANGAN di-cache browser
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # Berkas statis dengan hash (dist/assets/*): Cache permanen 1 tahun
+  <FilesMatch "\.(css|js|woff2|woff|ttf|png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # ============================================================================
+  # 5. PAGAR KEAMANAN BROWSER (SECURITY HEADERS)
+  # ============================================================================
+  # Cegah MIME-type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Cegah Clickjacking (Click-jacking protection)
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # Perlindungan XSS
+  Header set X-XSS-Protection "1; mode=block"
+
+  # Kebijakan Referrer aman
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Pembatasan izin fitur hardware sensitif
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # HSTS (Strict Transport Security - 1 tahun)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
