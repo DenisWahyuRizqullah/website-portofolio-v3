@@ -74,8 +74,8 @@ export const portfolioData: PortfolioData = {
       index: '04',
       code: 'TECH_FOUNDATION',
       label: 'CORE RUNTIME',
-      value: 'C++ • Python',
-      detail: 'Spanning bare-metal microcontrollers to neural network inference',
+      value: 'C++  Python',
+      detail: 'microcontrollers to neural network inference',
     },
   ],
 
@@ -318,31 +318,31 @@ export const portfolioData: PortfolioData = {
   ethos: [
     {
       indexStr: '01',
-      title: 'SUBSTANCE OVER CEREMONY',
-      subtitle: 'Functional Determinism',
+      title: 'BUILT TO WORK, NOT JUST IMPRESS',
+      subtitle: 'Practical Engineering',
       narrative:
-        'In engineering, clarity beats decoration. Systems are designed from the bare metal up: measurable voltage stability, predictable state machines, and clean data contracts take precedence over superficial aesthetic gimmicks.',
+        'I focus on building software that holds up under daily use. Clean APIs, readable code, and thoughtful design matter far more to me than chasing trends or overengineering simple problems.',
     },
     {
       indexStr: '02',
-      title: 'END-TO-END OWNERSHIP',
-      subtitle: 'Hardware to Interface',
+      title: 'BRIDGING BOTH WORLDS',
+      subtitle: 'Software Meets Hardware',
       narrative:
-        'A complete engineer understands both sides of the transceiver. Bridging analog sensor noise, microcontroller interrupts, and C++ firmware directly into responsive, human-centered web and mobile interfaces.',
+        'Working across embedded systems and modern web apps taught me to see the whole picture. I bridge low level hardware communication with responsive web and mobile interfaces that feel effortless to operate.',
     },
     {
       indexStr: '03',
-      title: 'DETERMINISTIC EDGE EXECUTION',
-      subtitle: 'Decoupled Resilience',
+      title: 'RESILIENT AT THE EDGE',
+      subtitle: 'Fast & Independent',
       narrative:
-        'Critical systems must function when connectivity collapses. Prioritizing on-device lightweight machine learning inference, local MQTT broker topologies, and offline caching over cloud dependency.',
+        'Great tools should stay reliable even with limited resources or unstable networks. I lean on lightweight on device machine learning and local messaging protocols to keep systems responsive where it counts.',
     },
     {
       indexStr: '04',
-      title: 'RIGOROUS FIELD VALIDATION',
-      subtitle: 'Real-World Calibration',
+      title: 'MEASURE, CALIBRATE, DOCUMENT',
+      subtitle: 'Real World Accuracy',
       narrative:
-        'A design that works on the lab bench is only half-finished. Engineering excellence requires testing in harsh environmental conditions: vibrational stress, thermal fluctuations, and physical actuation accuracy.',
+        'Guesswork has no place in production systems. I validate every build through real benchmarks, hardware calibration, and clear documentation so teams can trust and maintain what gets shipped.',
     },
   ],
 
