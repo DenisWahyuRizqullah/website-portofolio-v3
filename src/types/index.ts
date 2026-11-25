@@ -15,23 +15,16 @@ export type Theme = ThemeMode;
 
 /**
  * W3C ViewTransition interface definition.
- * Strictly aligned with W3C Specification and TypeScript DOM typings.
+ * Derived from DOM lib typings for compatibility across TypeScript versions.
  */
-export interface ViewTransitionLike {
-  readonly ready: Promise<undefined>;
-  readonly finished: Promise<undefined>;
-  readonly updateCallbackDone: Promise<undefined>;
-  skipTransition(): void;
-}
+export type ViewTransitionLike = ViewTransition;
 
 /**
- * Extended Document interface declaring the W3C View Transitions API.
+ * Extended Document type guaranteeing W3C View Transitions API support.
  */
-export interface DocumentWithViewTransition extends Document {
-  startViewTransition(
-    updateCallback?: () => Promise<void> | void
-  ): ViewTransitionLike;
-}
+export type DocumentWithViewTransition = Document & {
+  startViewTransition: NonNullable<Document['startViewTransition']>;
+};
 
 /**
  * Type-safe user-defined type guard to narrow Document for View Transitions support.
@@ -91,4 +84,25 @@ export interface UseThemeReturn {
       originElement?: HTMLElement | null;
     }
   ) => Promise<void>;
+}
+
+export type MediaAssetType = 'pdf' | 'image';
+
+export interface MediaAsset {
+  id: string;
+  type: MediaAssetType;
+  title: string;
+  subtitle: string;
+  category: 'CV & Resume' | 'Project Showcase';
+  src: string;
+  downloadName?: string;
+  metaTag?: string;
+}
+
+export interface KineticSlideOverProps {
+  isOpen: boolean;
+  items: MediaAsset[];
+  activeIndex: number;
+  onClose: () => void;
+  onSelectIndex: (index: number) => void;
 }

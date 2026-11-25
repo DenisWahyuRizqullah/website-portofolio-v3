@@ -26,6 +26,10 @@
     --text-tertiary: #71717A;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     font-family: var(--font-sans);
     background-color: var(--canvas);
@@ -217,6 +221,55 @@ html.theme-warp-freeze *::after {
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Kinetic Slide-Over Sheet Viewer Motion Physics (GPU-composited only)
+   ========================================================================== */
+.kinetic-scrim {
+  transition: opacity 280ms var(--ease-kinetic);
+}
+
+.kinetic-scrim[data-entered="true"] {
+  transition-duration: 420ms;
+}
+
+.kinetic-sheet {
+  transition: transform 280ms var(--ease-kinetic), opacity 280ms var(--ease-kinetic);
+  will-change: transform, opacity;
+}
+
+.kinetic-sheet[data-entered="true"] {
+  transition-duration: 420ms;
+}
+
+@keyframes kineticStageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kinetic-stage-enter {
+  animation: kineticStageIn 180ms var(--ease-kinetic) both;
+}
+
+.kinetic-zoom-img {
+  transition: transform 220ms var(--ease-kinetic);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kinetic-scrim,
+  .kinetic-sheet,
+  .kinetic-stage-enter,
+  .kinetic-zoom-img {
+    transition: none !important;
     animation: none !important;
   }
 }

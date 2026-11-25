@@ -1,12 +1,14 @@
 import React from 'react';
 import { Mail, Phone, MapPin, ArrowUpRight, FileText } from 'lucide-react';
+import type { MediaAsset } from '../types';
 import type { Profile } from '../types/portfolio';
 
 interface ContactModuleProps {
   profile: Profile;
+  onOpenMedia: (items: MediaAsset[], initialIndex?: number) => void;
 }
 
-export const ContactModule: React.FC<ContactModuleProps> = ({ profile }) => {
+export const ContactModule: React.FC<ContactModuleProps> = ({ profile, onOpenMedia }) => {
   return (
     <section id="contact" className="pt-10 pb-16 space-y-8 scroll-mt-20">
       {/* Section Header */}
@@ -34,22 +36,37 @@ export const ContactModule: React.FC<ContactModuleProps> = ({ profile }) => {
               </span>
               <div className="space-y-2.5 font-mono text-xs">
                 {profile.resumes.map((res) => (
-                  <a
+                  <button
                     key={res.label}
-                    href={res.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 bg-white dark:bg-[#141417] rounded border border-stone-200/80 dark:border-stone-800 hover:border-stone-900 dark:hover:border-stone-400 transition-colors group"
+                    type="button"
+                    onClick={() =>
+                      onOpenMedia(
+                        [
+                          {
+                            id: `contact-cv-${res.sublabel}`,
+                            type: 'pdf',
+                            title: res.label,
+                            subtitle: res.sublabel,
+                            category: 'CV & Resume',
+                            src: res.url,
+                            downloadName: res.sublabel,
+                            metaTag: 'PDF',
+                          },
+                        ],
+                        0
+                      )
+                    }
+                    className="w-full text-left flex items-center justify-between p-3 bg-white dark:bg-[#141417] rounded border border-stone-200/80 dark:border-stone-800 hover:border-stone-900 dark:hover:border-stone-400 transition-colors group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <FileText size={14} className="text-stone-400 dark:text-stone-500 group-hover:text-stone-900 dark:group-hover:text-stone-100 transition-colors shrink-0" />
+                      <FileText size={14} className="text-stone-400 dark:text-stone-500 group-hover:text-stone-900 dark:group-hover:text-stone-100 transition-colors shrink-0" aria-hidden="true" />
                       <div className="truncate">
                         <span className="text-stone-900 dark:text-stone-100 block truncate font-medium">{res.label}</span>
                         <span className="text-[10px] text-stone-400 dark:text-stone-500 block truncate">{res.sublabel}</span>
                       </div>
                     </div>
-                    <ArrowUpRight size={13} className="text-stone-400 dark:text-stone-500 group-hover:text-stone-900 dark:group-hover:text-stone-100 transition-colors shrink-0 ml-2" />
-                  </a>
+                    <ArrowUpRight size={13} className="text-stone-400 dark:text-stone-500 group-hover:text-stone-900 dark:group-hover:text-stone-100 transition-colors shrink-0 ml-2" aria-hidden="true" />
+                  </button>
                 ))}
               </div>
             </div>

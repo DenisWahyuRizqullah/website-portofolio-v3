@@ -1,12 +1,14 @@
 import React from 'react';
 import { ArrowDownRight, FileText } from 'lucide-react';
+import type { MediaAsset } from '../types';
 import type { Profile } from '../types/portfolio';
 
 interface HeroSectionProps {
   profile: Profile;
+  onOpenMedia: (items: MediaAsset[], initialIndex?: number) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ profile, onOpenMedia }) => {
   return (
     <section id="intro" className="pt-8 sm:pt-14 pb-12 sm:pb-16 space-y-8 scroll-mt-24">
       {/* Tracker label */}
@@ -47,15 +49,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
         </a>
 
         {profile.resumes.length > 0 && (
-          <a
-            href={profile.resumes[0].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-mono text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-stone-100 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 transition-colors py-2"
+          <button
+            type="button"
+            onClick={() =>
+              onOpenMedia(
+                [
+                  {
+                    id: 'hero-cv-se',
+                    type: 'pdf',
+                    title: profile.resumes[0].label,
+                    subtitle: profile.resumes[0].sublabel,
+                    category: 'CV & Resume',
+                    src: profile.resumes[0].url,
+                    downloadName: profile.resumes[0].sublabel,
+                    metaTag: 'PDF',
+                  },
+                ],
+                0
+              )
+            }
+            className="inline-flex items-center gap-2 text-xs font-mono text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-stone-100 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 transition-colors py-2 cursor-pointer rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
           >
-            <FileText size={13} className="text-stone-400 dark:text-stone-500" />
-            <span>DOWNLOAD CV (PDF)</span>
-          </a>
+            <FileText size={13} className="text-stone-400 dark:text-stone-500" aria-hidden="true" />
+            <span>VIEW CV (PDF)</span>
+          </button>
         )}
 
         <div className="text-[11px] font-mono text-stone-400 dark:text-stone-500 sm:ml-auto">

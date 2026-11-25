@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Plus, Minus, ArrowUpRight, FileText, CheckCircle2 } from 'lucide-react';
+import type { MediaAsset } from '../types';
 import type { ProjectItem } from '../types/portfolio';
 
 interface ProjectAccordionProps {
   projects: ProjectItem[];
+  onOpenMedia: (items: MediaAsset[], initialIndex?: number) => void;
 }
 
-export const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
+export const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects, onOpenMedia }) => {
   // Open the first featured project by default (e.g. Telkomsel) so the page immediately displays technical depth
   const [openIndex, setOpenIndex] = useState<number | null>(1);
   const [filterCategory, setFilterCategory] = useState<string>('ALL');
@@ -61,6 +63,17 @@ export const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) 
       <div className="divide-y divide-stone-200/80 dark:divide-stone-800 border-b border-stone-200/80 dark:border-stone-800">
         {filteredProjects.map((project) => {
           const isOpen = openIndex === project.id;
+          const imageAssets: MediaAsset[] = (project.caseStudy?.images ?? []).map(
+            (url, i) => ({
+              id: `proj-${project.id}-img-${i}`,
+              type: 'image',
+              title: project.title,
+              subtitle: `${project.subtitle} · Frame ${String(i + 1).padStart(2, '0')}`,
+              category: 'Project Showcase',
+              src: url,
+              metaTag: project.indexStr,
+            })
+          );
 
           return (
             <div
@@ -189,24 +202,27 @@ export const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) 
                         )}
 
                         {/* Authentic Engineering Photography / Media Gallery */}
-                        {project.caseStudy.images && project.caseStudy.images.length > 0 && (
+                        {imageAssets.length > 0 && (
                           <div className="space-y-2">
                             <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-stone-400 dark:text-stone-500 block">
                               Hardware & Dataset Telemetry Verification
                             </span>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                              {project.caseStudy.images.slice(0, 4).map((imgUrl, idx) => (
-                                <div
-                                  key={idx}
-                                  className="group relative aspect-[4/3] bg-stone-100 dark:bg-stone-900 rounded border border-stone-200/80 dark:border-stone-800 overflow-hidden"
+                              {imageAssets.slice(0, 4).map((asset, idx) => (
+                                <button
+                                  key={asset.id}
+                                  type="button"
+                                  onClick={() => onOpenMedia(imageAssets, idx)}
+                                  aria-label={`Inspect ${project.title} image ${idx + 1} of ${imageAssets.length}`}
+                                  className="group relative aspect-[4/3] bg-stone-100 dark:bg-stone-900 rounded border border-stone-200/80 dark:border-stone-800 overflow-hidden cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
                                 >
                                   <img
-                                    src={imgUrl}
+                                    src={asset.src}
                                     alt={`${project.title} telemetry ${idx + 1}`}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                     loading="lazy"
                                   />
-                                </div>
+                                </button>
                               ))}
                             </div>
                           </div>
@@ -215,16 +231,33 @@ export const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) 
                         {/* Documentation / Paper Links */}
                         {project.caseStudy.reportUrl && (
                           <div className="pt-1 flex items-center gap-3">
-                            <a
-                              href={project.caseStudy.reportUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs font-mono text-stone-900 dark:text-stone-100 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-900 dark:hover:decoration-stone-100 transition-colors"
+                            <button
+                              type="button"
+                              onClick={() =>
+                                onOpenMedia(
+                                  [
+                                    {
+                                      id: `proj-${project.id}-report`,
+                                      type: 'pdf',
+                                      title:
+                                        project.caseStudy?.reportLabel ||
+                                        `${project.title} — Technical Report`,
+                                      subtitle: `${project.title} · ${project.date}`,
+                                      category: 'Project Showcase',
+                                      src: project.caseStudy!.reportUrl!,
+                                      downloadName: project.caseStudy!.reportUrl!.split('/').pop(),
+                                      metaTag: 'PDF',
+                                    },
+                                  ],
+                                  0
+                                )
+                              }
+                              className="inline-flex items-center gap-1.5 text-xs font-mono text-stone-900 dark:text-stone-100 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-900 dark:hover:decoration-stone-100 transition-colors cursor-pointer py-1 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
                             >
-                              <FileText size={13} className="text-stone-500 dark:text-stone-400" />
+                              <FileText size={13} className="text-stone-500 dark:text-stone-400" aria-hidden="true" />
                               <span>{project.caseStudy.reportLabel || 'Read Complete Technical Report (PDF)'}</span>
-                              <ArrowUpRight size={12} className="text-stone-400 dark:text-stone-500" />
-                            </a>
+                              <ArrowUpRight size={12} className="text-stone-400 dark:text-stone-500" aria-hidden="true" />
+                            </button>
                           </div>
                         )}
                       </div>

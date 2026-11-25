@@ -1,12 +1,14 @@
 import React from 'react';
 import { ArrowUpRight, FileText } from 'lucide-react';
+import type { MediaAsset } from '../types';
 import type { ExperienceItem } from '../types/portfolio';
 
 interface CareerRecordProps {
   experiences: ExperienceItem[];
+  onOpenMedia: (items: MediaAsset[], initialIndex?: number) => void;
 }
 
-export const CareerRecord: React.FC<CareerRecordProps> = ({ experiences }) => {
+export const CareerRecord: React.FC<CareerRecordProps> = ({ experiences, onOpenMedia }) => {
   return (
     <section id="career" className="pt-10 pb-16 space-y-8 scroll-mt-20">
       {/* Section Header */}
@@ -66,16 +68,31 @@ export const CareerRecord: React.FC<CareerRecordProps> = ({ experiences }) => {
               </div>
 
               {exp.reportUrl && (
-                <a
-                  href={exp.reportUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-stone-800 dark:text-stone-200 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-900 dark:hover:decoration-stone-100 transition-colors"
+                <button
+                  type="button"
+                  onClick={() =>
+                    onOpenMedia(
+                      [
+                        {
+                          id: `career-${exp.id}-report`,
+                          type: 'pdf',
+                          title: exp.reportLabel || `${exp.organization} Technical Report`,
+                          subtitle: `${exp.role} · ${exp.period}`,
+                          category: 'Project Showcase',
+                          src: exp.reportUrl!,
+                          downloadName: exp.reportUrl!.split('/').pop(),
+                          metaTag: 'PDF',
+                        },
+                      ],
+                      0
+                    )
+                  }
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-stone-800 dark:text-stone-200 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-900 dark:hover:decoration-stone-100 transition-colors cursor-pointer py-1 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 dark:focus-visible:ring-stone-100"
                 >
-                  <FileText size={12} className="text-stone-400 dark:text-stone-500" />
+                  <FileText size={12} className="text-stone-400 dark:text-stone-500" aria-hidden="true" />
                   <span>{exp.reportLabel || 'View Report (PDF)'}</span>
-                  <ArrowUpRight size={11} className="text-stone-400 dark:text-stone-500" />
-                </a>
+                  <ArrowUpRight size={11} className="text-stone-400 dark:text-stone-500" aria-hidden="true" />
+                </button>
               )}
             </div>
           </div>
